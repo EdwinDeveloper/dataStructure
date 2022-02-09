@@ -60,12 +60,67 @@ class BinarySearchTree:
             prev = temp
             temp = temp.right
         return prev 
+    
+    def BFS(self):
+        current_node = self.root
+        queue = []
+        result = []
+        queue.append(current_node)
+        while len(queue) > 0:
+            current_node = queue.pop(0)
+            result.append(current_node.value)
+            if current_node.left is not None:
+                queue.append(current_node.left)
+            if current_node.right is not None:
+                queue.append(current_node.right)
+        return result
+
+    def dfs_pre_order(self):
+        result = []
+        def traverse(current_node):
+            result.append(current_node.value)
+            if current_node.left is not None:
+                traverse(current_node.left)
+            if current_node.right is not None:
+                traverse(current_node.right)
+        
+        traverse(self.root)
+        return result
+
+    def dfs_post_order(self):
+        result = []
+        def traverse(current_node):
+            if current_node.left is not None:
+                traverse(current_node.left)
+            if current_node.right is not None:
+                traverse(current_node.right)
+            result.append(current_node.value)
+        
+        traverse(self.root)
+        return result
+
+    def dfs_in_order(self):
+        result = []
+        def traverse(current_node):
+            if current_node.left is not None:
+                traverse(current_node.left)
+            result.append(current_node.value)
+            if current_node.right is not None:
+                traverse(current_node.right)
+        
+        traverse(self.root)
+        return result
+
         
 
 my_tree = BinarySearchTree()
-print("1")
-for i in range(9999):
-     print("Numero : ", i)
-     my_tree.insert(i)
-print("Saliendo")
-my_tree.max_value()
+
+my_tree.insert(47)
+my_tree.insert(21)
+my_tree.insert(76)
+my_tree.insert(18)
+my_tree.insert(27)
+my_tree.insert(52)
+my_tree.insert(82)
+
+print(my_tree.dfs_in_order())

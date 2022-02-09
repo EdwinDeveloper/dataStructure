@@ -1,7 +1,13 @@
+from locale import currency
+
+
 class Node:
     def __init__(self,value):
         self.value = value
         self.next = None
+
+    def printed(self):
+        print('[Node: %s]' % self.value)
 
 class LinckedList:
     def __init__(self, value):
@@ -15,6 +21,29 @@ class LinckedList:
         while temp is not None:
             print(temp.value)
             temp = temp.next
+
+    def search(self, value):
+        current = self.head
+        while current:
+            if current.value == value:
+                return current
+            else:
+                current = current.next
+        return None
+
+    def repr(self):
+        nodes = []
+        current = self.head
+        while current:
+            if current is self.head:
+                nodes.append("[Head: %s]" % current.value)
+            elif current is self.tail:
+                nodes.append("[Tail: %s]" % current.value)
+            else:
+                nodes.append("[%s]" % current.value)
+            current = current.next
+        return '-> '.join(nodes)
+
 
     def append(self, value):
         new_node = Node(value)
@@ -65,7 +94,7 @@ class LinckedList:
             self.tail = None
         return temp
 
-    def get(self, index):
+    def  get(self, index):
         if index < 0 or index >= self.length:
             return None
         temp = self.head
@@ -122,16 +151,3 @@ class LinckedList:
 
 
 
-
-
-
-
-list = LinckedList(0)
-list.append(1)
-list.append(2)
-list.append(3)
-list.append(4)
-
-list.reverse()
-
-list.print_list()
